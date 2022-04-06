@@ -22,9 +22,13 @@ export default class DragDropMonitor {
       'handlerIds, when specified, must be an array of strings.',
     );
 
-    let prevStateId = this.store.getState().stateId;
+    let prevStateId = /* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+    this.store.getState().stateId;
     const handleChange = () => {
-      const state = this.store.getState();
+      const state = /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState();
       const currentStateId = state.stateId;
       try {
         const canSkipListener = currentStateId === prevStateId || (
@@ -40,7 +44,11 @@ export default class DragDropMonitor {
       }
     };
 
-    return this.store.subscribe(handleChange);
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.subscribe(handleChange)
+    );
   }
 
   subscribeToOffsetChange(listener) {
@@ -49,9 +57,13 @@ export default class DragDropMonitor {
       'listener must be a function.',
     );
 
-    let previousState = this.store.getState().dragOffset;
+    let previousState = /* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+    this.store.getState().dragOffset;
     const handleChange = () => {
-      const nextState = this.store.getState().dragOffset;
+      const nextState = /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOffset;
       if (nextState === previousState) {
         return;
       }
@@ -60,7 +72,11 @@ export default class DragDropMonitor {
       listener();
     };
 
-    return this.store.subscribe(handleChange);
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.subscribe(handleChange)
+    );
   }
 
   canDragSource(sourceId) {
@@ -135,50 +151,94 @@ export default class DragDropMonitor {
   }
 
   getItemType() {
-    return this.store.getState().dragOperation.itemType;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.itemType
+    );
   }
 
   getItem() {
-    return this.store.getState().dragOperation.item;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.item
+    );
   }
 
   getSourceId() {
-    return this.store.getState().dragOperation.sourceId;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.sourceId
+    );
   }
 
   getTargetIds() {
-    return this.store.getState().dragOperation.targetIds;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.targetIds
+    );
   }
 
   getDropResult() {
-    return this.store.getState().dragOperation.dropResult;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.dropResult
+    );
   }
 
   didDrop() {
-    return this.store.getState().dragOperation.didDrop;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.didDrop
+    );
   }
 
   isSourcePublic() {
-    return this.store.getState().dragOperation.isSourcePublic;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOperation.isSourcePublic
+    );
   }
 
   getInitialClientOffset() {
-    return this.store.getState().dragOffset.initialClientOffset;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOffset.initialClientOffset
+    );
   }
 
   getInitialSourceClientOffset() {
-    return this.store.getState().dragOffset.initialSourceClientOffset;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOffset.initialSourceClientOffset
+    );
   }
 
   getClientOffset() {
-    return this.store.getState().dragOffset.clientOffset;
+    return (
+      /* TODO: JSFIX could not patch the breaking change:
+      Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+      this.store.getState().dragOffset.clientOffset
+    );
   }
 
   getSourceClientOffset() {
-    return getSourceClientOffset(this.store.getState().dragOffset);
+    return getSourceClientOffset(/* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+    this.store.getState().dragOffset);
   }
 
   getDifferenceFromInitialOffset() {
-    return getDifferenceFromInitialOffset(this.store.getState().dragOffset);
+    return getDifferenceFromInitialOffset(/* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+    this.store.getState().dragOffset);
   }
 }
