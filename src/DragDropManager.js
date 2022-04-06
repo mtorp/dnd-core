@@ -1,4 +1,4 @@
-import createStore from 'redux/lib/createStore';
+import { createStore } from 'redux';
 import reducer from './reducers';
 import * as dragDropActions from './actions/dragDrop';
 import DragDropMonitor from './DragDropMonitor';
@@ -12,11 +12,15 @@ export default class DragDropManager {
     this.registry = this.monitor.registry;
     this.backend = createBackend(this);
 
+    /* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
     store.subscribe(this.handleRefCountChange.bind(this));
   }
 
   handleRefCountChange() {
-    const shouldSetUp = this.store.getState().refCount > 0;
+    const shouldSetUp = /* TODO: JSFIX could not patch the breaking change:
+    Throw if getState, subscribe, or unsubscribe called while dispatching (including inside a reducer) (#1569 by @mjw56) */
+    this.store.getState().refCount > 0;
     if (shouldSetUp && !this.isSetUp) {
       this.backend.setup();
       this.isSetUp = true;
